@@ -1,4 +1,4 @@
-//define variables
+//Defined variables
 
 var lower = 'abcdefghijklmnopqrstuvwxyz';
 var upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -13,16 +13,16 @@ var specialSelection = false;
 var numberSelection = false;
 
 
-//function to generate a random password
+//Created a function to generate a random password
 
 function generate() {
-    var confirmLength = '';
-//asking user to input desired character length
-    while (isNaN(confirmLength) || confirmLength < 8 || confirmLength > 128) {
-        confirmLength = prompt("Pick a password length between 8 to 128 characters");
+    var passwordLength = '';
+//User is asked to put in their desired length
+    while (isNaN(passwordLength) || passwordLength < 8 || passwordLength > 128) {
+        passwordLength = prompt("Pick a password length between 8 to 128 characters");
         
     }
-//getting user input for which character types to use for the password
+//User is asked more questins to use for their password
          var lowerCasePrompt = prompt ("Do you want your password to have lowercase?(Y/N)")
          if (lowerCasePrompt =="Y" )  {
           lowerSelection = true
@@ -43,27 +43,41 @@ function generate() {
         if (numericalPrompt == "Y") {
             numberSelection = true
         }
-//if none of the character types are selected, alerts the user to choose at least one
+//If none of the character types are selected, alerts the user to choose at least one
         if (lowerSelection === false && upperSelection === false && specialSelection === false && numberSelection === false) {
-            alert("At least one character type must be selected")
+            alert("Please select at least one character on your next attempt")
         }
     
-//generate random password
+//Generate random password
     var characters = '';
-    characters += (lowerSelection ? lower : '');
-    characters += (upperSelection ? upper : '');
-    characters += (specialSelection ? special : '');
-    characters += (numberSelection ? numbers : '');
 
-    pwd = password(confirmLength, characters);
+    if (lowerSelection ) {
+        characters += lower
+    }
+
+    if (upperSelection) {
+
+        characters += upper
+    }
+     if (numberSelection) {
+
+        characters += numbers
+     }
+     if (specialSelection) {
+
+        characters += special
+     }
+ 
+
+    pwd = password(passwordLength, characters);
 
     document.getElementById("password").innerHTML = pwd;
 
 }
 
-function password(l, characters) {
+function password(passwordLength, characters) {
     var pwd = '';
-    for (var i = 0; i < l; ++i) {
+    for (var i = 0; i < passwordLength; ++i) {
         pwd += characters.charAt(Math.floor(Math.random() * characters.length));
     }
     return pwd;
